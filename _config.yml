@@ -3,84 +3,58 @@
 # https://github.com/cotes2020/jekyll-theme-chirpy
 # © 2017-2019 Cotes Chung
 # MIT licensed
-
-
-# jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 #--------------------------
 
-title: Chirpy                          # the main title
+title: T1m3-m4ch1n3
 
-tagline: A text-focused Jekyll theme.  # it will display as the sub-title
+tagline: Revese Engineering and Malware Analysis
 
-description: >-                        # used by seo meta and the atom feed
-  A minimal, portfolio, sidebar,
-  bootstrap Jekyll theme with responsive web design
-  and focuses on text presentation.
+description: >-
+  A place where you can find Reversing Engineering CTF challenges writeups,
+  Malware Analysis reports and some low-level geeky stuff
 
-# Replace with the website url, e.g. 'https://username.github.io'
-url: 'protocol://domain'
+url: 'https://T1m3M.me'
 
-author: your_full_name                  # change to your full name
+author: Abdelrahman Nasr
 
-avatar: /assets/img/sample/avatar.jpg   # support internet resources
+avatar: /assets/img/sample/avatar.png
 
 github:
-  username: github_username             # change to your github username
+  username: T1m3M
 
 twitter:
-  username: twitter_username            # change to your twitter username
+  username: T1m3M
 
 social:
-  name: your_full_name                  # it will shows as the copyright owner in Footer
-  email: example@doamin.com             # change to your email address
+  name: Abdelrahman Nasr
+  email: 1.h4ck.t1m3@gmail.com
   links:
-    # The first element serves as the copyright owner's link
-    - https://twitter.com/username      # change to your twitter homepage
-    - https://github.com/username       # change to your github homepage
-    # Uncomment below to add more social links
-    # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+    - https://twitter.com/T1m3M
+    - https://github.com/T1m3M
 
-google_site_verification: google_meta_tag_verification # change to your verification string
+google_site_verification: 8KurBy7FwofXMvxhSjeTiiwavWCbfv_GmzQqxD_6OHU
 
 #--------------------------
 
-
-# Only if your site type is GitHub Project sites and doesn't have a custom domain,
-# change below value to '/projectname'.
 baseurl: ''
 
-# Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
-timezone: Asia/Shanghai
+timezone: Africa/Cairo
 
 google_analytics:
-  id: ''          # Fill with your Google Analytics ID
+  id: 'G-1WZELSLYX1'
   pv:
-    # The Google Analytics pageviews switch.
-    # DO NOT enable it unless you know how to deploy the Google Analytics superProxy.
     enabled: false
-    # the next options only valid when `google_analytics.pv` is enabled.
     proxy_url: ''
     proxy_endpoint: ''
-    cache: false  # pv data local cache, good for the users from GFW area.
+    cache: false
 
 disqus:
-  comments: false  # boolean type, the global switch for posts comments.
-  shortname: ''    # Fill with your Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
+  comments: false
+  shortname: ''
 
 
-# Prefer color scheme setting, available values:
-#
-#     dual   - Follow the system prefer color by default, and a toggle will display
-#              in the left bottom of Sidebar, which used for switch the theme between dark and light.
-#
-#     light  - Use the light color scheme
-#
-#     dark   - Use the dark color scheme
-#
-theme_mode: dual
+theme_mode: dark
 
-# boolean type, global switch for ToC in posts.
 toc: true
 
 paginate: 10
@@ -92,7 +66,7 @@ highlighter: rouge
 kramdown:
   input: GFM
   syntax_highlighter: rouge
-  syntax_highlighter_opts: # Rouge Options › https://github.com/jneen/rouge#full-options
+  syntax_highlighter_opts:
     css_class: 'highlight'
     # default_lang: console
     span:
@@ -101,19 +75,17 @@ kramdown:
       line_numbers: true
       start_line: 1
 
-# DO NOT change this unless you're a Pro user on Jekyll and Web development,
-# or you think you're smart enough to change other relevant URLs within this template.
 permalink: /posts/:title/
 
 defaults:
   -
     scope:
-      path: ""          # An empty string here means all files in the project
+      path: ""
       type: posts
     values:
       layout: post
-      comments: true    # Enable comments in posts.
-      toc: true         # Display TOC column in posts.
+      comments: false
+      toc: true
       location: Post
       breadcrumb:
         -
@@ -155,7 +127,7 @@ defaults:
       path: tabs
     values:
       layout: page
-      dynamic_title: true    # Hide title in mobile screens.
+      dynamic_title: true
       breadcrumb:
         -
           label: Home
@@ -176,7 +148,7 @@ compress_html:
     envs: []
 
 exclude:
-  - vendor        # Avoid Jekyll mistakenly read the vendor directory on Travis-CI's VM .
+  - vendor
   - Gemfile.lock
   - Gemfile
   - tools
@@ -184,7 +156,7 @@ exclude:
   - README.md
   - LICENSE
 
-sitemap_exclude:  # Sitemap will exclude the following items.
+sitemap_exclude:
   fuzzy:
     - /assets/
   accurate:
