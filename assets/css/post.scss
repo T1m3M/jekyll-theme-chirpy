@@ -67,9 +67,15 @@ $prompt-newer: "{{ site.data.label.post.button.next }}";
     @include btn-post-nav;
     color: var(--link-color);
     &:hover {
-      background: #2a408e;
-      color: #fff;
-      border-color: #2a408e;
+      background: var(--card-bg);
+      border-color: var(--card-bg);
+    }
+    &:active {
+      background: var(--card-bg) !important;
+      border-color: var(--card-bg) !important;
+    }
+    &:focus {
+      box-shadow: none !important;
     }
     &.disabled {
       @include btn-post-nav;
@@ -167,12 +173,12 @@ $prompt-newer: "{{ site.data.label.post.button.next }}";
     -moz-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
     h3 {
-      color: var(--text-color);
+      color: var(--toc-highlight);
     }
     &:hover {
       -webkit-transform: translate3d(0, -3px, 0);
       transform: translate3d(0, -3px, 0);
-      box-shadow: 0 20px 35px -4px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 20px -10px rgba(0, 0, 0, 0.15);
     }
   }
 

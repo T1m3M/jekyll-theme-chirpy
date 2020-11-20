@@ -69,7 +69,6 @@
       border: 3px solid;
       background-color: var(--timeline-year-dot-color);
       border-color: var(--timeline-node-bg);
-      box-shadow: 0 0 2px 0 #c2c6cc;
       z-index: 1;
     }
   } // #archives span.lead
@@ -95,7 +94,6 @@
         top: 1.35rem;
         left: 69px;
         background-color: var(--timeline-node-bg);
-        box-shadow: 0 0 3px 0 #c2c6cc;
         z-index: 1;
       }
     }
