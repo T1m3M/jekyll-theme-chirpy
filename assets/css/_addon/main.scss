@@ -239,9 +239,9 @@ $sidebar-display: "sidebar-display";
     -webkit-transition: all 0.35s ease-in-out;
     -moz-transition: all 0.35s ease-in-out;
     transition: all 0.35s ease-in-out;
-  }
+    }
 
-  &:hover > a {
+  > a:hover {
     border-color: #ae81ff;
     -webkit-box-shadow: 0 0 15px -5px #ae81ff;
     -moz-box-shadow: 0 0 15px -5px #ae81ff;
