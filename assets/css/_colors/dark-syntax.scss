@@ -8,21 +8,21 @@
 
 @mixin dark-syntax {
   /* -----  My styles ------ */
-  --highlight-bg-color: #272822;
-  --highlighter-rouge-color: #de6b18;
+  --highlight-bg-color: #282c34;
+  --highlighter-rouge-color: #00dc70;
   --highlight-lineno-color: #6c6c6d;
   --highlight-lineno-border-color: #3c4042;
   --inline-code-bg: var(--highlight-bg-color);
 
   .highlight {
-    .gp { color: #818c96; }
+    .gp { color: #ae81ff; }
   }
 
   pre { color: #818c96; } /* override Bootstrap */
-  kbd { background-color: black; }
+  kbd { background-color: #333; }
 
   /* syntax highlight colors from https://raw.githubusercontent.com/jwarby/pygments-css/master/monokai.css */
-  .highlight pre { background-color: #272822; }
+  .highlight pre { background-color: #282c34; }
   .highlight .hll { background-color: #272822; }
   .highlight .c { color: #75715e; } /* Comment */
   .highlight .err { color: #960050; background-color: #1e0010; } /* Error */
