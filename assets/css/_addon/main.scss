@@ -88,8 +88,11 @@ $sidebar-display: "sidebar-display";
       font-weight: 900;
       font-size: 1.5rem;
       letter-spacing: 0.5px;
+      color: $my-main-color;
+      transition: text-shadow 0.35s ease-in-out;
+
       &:hover {
-        color: #fff;
+        text-shadow: 0 0 2px $my-main-color;
         text-decoration: none;
       }
     }
@@ -233,7 +236,7 @@ $sidebar-display: "sidebar-display";
     width: 6rem;
     height: 6rem;
     border-radius: 50%;
-    border: 2px solid #ae81ff;
+    border: 2px solid $my-main-color;
     overflow: hidden;
     transform: translateZ(0); // fixed the zoom in Safari
     -webkit-transition: all 0.35s ease-in-out;
@@ -243,10 +246,10 @@ $sidebar-display: "sidebar-display";
 
   > a:hover {
     border-color: #ae81ff;
-    -webkit-box-shadow: 0 0 15px -5px #ae81ff;
-    -moz-box-shadow: 0 0 15px -5px #ae81ff;
-    -ms-box-shadow: 0 0 15px -5px #ae81ff;
-    box-shadow: 0 0 15px -5px #ae81ff;
+    -webkit-box-shadow: 0 0 15px -5px $my-main-color;
+    -moz-box-shadow: 0 0 15px -5px $my-main-color;
+    -ms-box-shadow: 0 0 15px -5px $my-main-color;
+    box-shadow: 0 0 15px -5px $my-main-color;
   }
 
   img {
