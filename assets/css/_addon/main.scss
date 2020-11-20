@@ -743,6 +743,12 @@ img {
   h1 {
     margin-top: 3rem;
     margin-bottom: 1rem;
+    display: inline-block;
+    color: #e83e8c;
+    font-weight: bold;
+    background: -webkit-linear-gradient(0, $my-main-color, #e83e8c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   em { /* MarkDown italic */
     padding-right: 0.2rem;
