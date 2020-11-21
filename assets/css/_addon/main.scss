@@ -12,6 +12,8 @@
 @import "_colors/light-typography";
 @import "_colors/dark-typography";
 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
+
 @mixin set-visible($light-display, $dark-display) {
   [light-mode-invisible] {
     display: $light-display;
