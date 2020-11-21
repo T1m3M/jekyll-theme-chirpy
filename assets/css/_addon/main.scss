@@ -740,7 +740,7 @@ img {
 }
 
 .post {
-  h1 {
+  h1:first-child {
     margin-top: 3rem;
     margin-bottom: 1rem;
     display: inline-block;
