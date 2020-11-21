@@ -76,6 +76,7 @@
       border: 1px solid var(--btn-paginator-border-color);
       font-family: 'Lato', sans-serif;
       background-color: var(--button-bg);
+      transition: all 0.35s ease-in-out;
       &:hover {
         background-color: var(--btn-paginator-hover-color);
         border-color: var(--btn-active-border-color);

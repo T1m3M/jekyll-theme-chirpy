@@ -553,9 +553,10 @@ footer {
     border-radius: 0.8rem;
     padding: 0.3rem .5rem;
     margin: 0 .35rem .5rem 0;
+    transition: all 0.15s ease-in-out;
     &:hover {
-      background-color: #e83e8c;
-      border-color: #e83e8c;
+      background-color: var(--btn-paginator-hover-color);
+      border-color: var(--btn-paginator-hover-color);
       color: #fff;
       transition: none;
     }
@@ -749,6 +750,17 @@ img {
     background: -webkit-linear-gradient(0, $my-main-color, #e83e8c);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    & > a {
+      transition: all 0.35s ease-in-out;
+    }
+
+    &:hover > a {
+      border-bottom: none;
+      color: $my-main-color;
+      -webkit-text-shadow: 0 0 15px $my-main-color;
+      text-shadow: 0 0 20px $my-main-color;
+    }
   }
   em { /* MarkDown italic */
     padding-right: 0.2rem;
