@@ -49,6 +49,20 @@
   margin-top: -2.5rem;
 }
 
+%headline-gradient {
+  font-weight: bold;
+  background: -webkit-linear-gradient(0, #ae81ff, #e83e8c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+%headline-gr-hover {
+  border-bottom: none;
+  color: #ae81ff;
+  -webkit-text-shadow: 0 0 15px #ae81ff;
+  text-shadow: 0 0 20px #ae81ff;
+}
+
 /* ---------- scss mixin --------- */
 
 @mixin no-text-decoration {

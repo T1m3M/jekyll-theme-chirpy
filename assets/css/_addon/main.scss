@@ -394,8 +394,12 @@ $sidebar-display: "sidebar-display";
     @extend %heading;
     font-size: 1.4rem;
     line-height: 2.5rem;
+    @extend %headline-gradient;
+    transition: all 0.35s ease-in-out;
     &:hover {
       @extend %link-hover;
+      @extend %headline-gr-hover;
+      border-bottom: none;
     }
   }
   > div {
@@ -749,10 +753,7 @@ img {
     margin-bottom: 1rem;
     display: inline-block;
     color: #e83e8c;
-    font-weight: bold;
-    background: -webkit-linear-gradient(0, $my-main-color, #e83e8c);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    @extend %headline-gradient;
 
     & > a {
       transition: all 0.35s ease-in-out;
@@ -760,9 +761,7 @@ img {
 
     &:hover > a {
       border-bottom: none;
-      color: $my-main-color;
-      -webkit-text-shadow: 0 0 15px $my-main-color;
-      text-shadow: 0 0 20px $my-main-color;
+      @extend %headline-gr-hover;
     }
   }
   em { /* MarkDown italic */
