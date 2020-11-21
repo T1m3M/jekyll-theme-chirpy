@@ -74,6 +74,13 @@ body {
   font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif;
 }
 
+span.intro{
+  font-weight: bold;
+  font-size: 1.25rem;
+  display: inline-block;
+  color: $my-main-color;
+}
+
 /*--- sidebar layout ---*/
 
 $tab-count: {{ site.data.tabs | size }};

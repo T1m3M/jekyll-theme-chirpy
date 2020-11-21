@@ -8,4 +8,9 @@ title: About
 # MIT License
 ---
 
-> **Note**: Add Markdown syntax content to file `tabs/about.md` and it will show up on this page.
+<span class="intro">A normal Computer science student by day and a malware analyst by night.</span>
+
+In my free time I self-study malware analysis, also I'm in love with all the low-level stuff and always curious about how things really work under the hood.
+<br>
+
+Here you can find write-ups for Reverse Engineering (RE) challenges that i solve during CTFs, my Malware Analysis reports and the new things i learn related to Computer science or Cybersecurity in general
