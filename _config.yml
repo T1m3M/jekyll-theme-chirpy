@@ -77,6 +77,12 @@ kramdown:
 
 permalink: /posts/:title/
 
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+
 defaults:
   -
     scope:
@@ -100,8 +106,6 @@ defaults:
     scope:
       path: tags
     values:
-      tab_active: Tags
-      location: Tag
       breadcrumb:
         -
           label: Home
@@ -113,8 +117,6 @@ defaults:
     scope:
       path: categories
     values:
-      tab_active: Categories
-      location: Category
       breadcrumb:
         -
           label: Home
@@ -124,7 +126,8 @@ defaults:
           url: /tabs/categories/
   -
     scope:
-      path: tabs
+      path: ''
+      type: tabs             # see `site.collections`
     values:
       layout: page
       dynamic_title: true
@@ -132,7 +135,6 @@ defaults:
         -
           label: Home
           url: /
-
 
 sass:
   sass_dir: /assets/css
@@ -170,3 +172,13 @@ sitemap_exclude:
     - sitemap.xml
     - robots.txt
     - redirects.json
+
+# see: <https://github.com/jekyll/jekyll-archives/blob/master/docs/configuration.md>
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: '/tags/:name/'
+    category: '/categories/:name/'
