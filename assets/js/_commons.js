@@ -6,6 +6,8 @@
   MIT License
 */
 
+{% include_relative _commons/error.js %}
+
 {% include_relative _commons/back-to-top.js %}
 
 {% include_relative _commons/search-display.js %}
