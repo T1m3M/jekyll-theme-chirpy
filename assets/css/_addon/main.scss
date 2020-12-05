@@ -61,7 +61,7 @@ html[mode=dark] {
 }
 
 html, body {
-  font-size: 16px;
+  font-size: 18px;
 }
 
 body {
@@ -70,10 +70,6 @@ body {
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif;
-}
-
-p, table, code{
-  font-size: 1.15rem !important;
 }
 
 span.intro{
