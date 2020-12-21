@@ -10,9 +10,9 @@ order: 4
 # MIT License
 ---
 
-<span class="intro">A normal Computer science student by day and a malware analyst by night.</span>
+<span class="intro">A Computer Science student by day and a malware analyst by night</span>
 
-In my free time I self-study malware analysis, also I'm in love with all the low-level stuff and always curious about how things really work under the hood.
+In my free time I self-study malware analysis, also I'm in love with all the low-level geeky stuff and always curious about how things work under the hood.
 <br>
 
-Here you can find write-ups for Reverse Engineering (RE) challenges that i solve during CTFs, my Malware Analysis reports and the new things i learn related to Computer science or Cybersecurity in general
+Here you can find my writeups for Reverse Engineering challenges that i solve during CTFs, my Malware Analysis reports and the new things i learn related to Computer science or Cybersecurity!
