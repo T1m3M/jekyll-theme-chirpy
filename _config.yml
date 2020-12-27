@@ -127,7 +127,7 @@ defaults:
   -
     scope:
       path: ''
-      type: tabs             # see `site.collections`
+      type: tabs
     values:
       layout: page
       dynamic_title: true
@@ -173,7 +173,6 @@ sitemap_exclude:
     - robots.txt
     - redirects.json
 
-# see: <https://github.com/jekyll/jekyll-archives/blob/master/docs/configuration.md>
 jekyll-archives:
   enabled: [categories, tags]
   layouts:
