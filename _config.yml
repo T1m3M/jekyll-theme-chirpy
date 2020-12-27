@@ -7,15 +7,15 @@
 
 title: T1m3-m4ch1n3
 
-tagline: Revese Engineering and Malware Analysis Blog
+tagline: Revese Engineering and Malware Analysis
 
 description: >-
   A place where you can find Reversing Engineering CTF challenges writeups,
-  Malware Analysis reports and some low-level geeky stuff!
+  Malware Analysis reports and some low-level geeky stuff
 
-url: 'https://T1m3M.github.io'
+url: 'https://T1m3M.me'
 
-author: T1m3-m4ch1n3
+author: Abdelrahman Nasr
 
 avatar: /assets/img/sample/avatar.png
 
@@ -26,7 +26,7 @@ twitter:
   username: T1m3M
 
 social:
-  name: T1m3-m4ch1n3
+  name: Abdelrahman Nasr
   email: 1.h4ck.t1m3@gmail.com
   links:
     - https://twitter.com/T1m3M
@@ -59,12 +59,7 @@ toc: true
 
 paginate: 10
 
-markdown: kramdown
-
-highlighter: rouge
-
 kramdown:
-  input: GFM
   syntax_highlighter: rouge
   syntax_highlighter_opts:
     css_class: 'highlight'
@@ -92,7 +87,6 @@ defaults:
       layout: post
       comments: false
       toc: true
-      location: Post
       breadcrumb:
         -
           label: Posts
@@ -102,6 +96,13 @@ defaults:
       path: _drafts
     values:
       comments: false
+  -
+    scope:
+      path: index.html
+    values:
+      breadcrumb:
+        -
+          label: Posts
   -
     scope:
       path: tags
@@ -127,7 +128,7 @@ defaults:
   -
     scope:
       path: ''
-      type: tabs
+      type: tabs             # see `site.collections`
     values:
       layout: page
       dynamic_title: true
@@ -147,7 +148,7 @@ compress_html:
   profile: false
   blanklines: false
   ignore:
-    envs: []
+    envs: [development]
 
 exclude:
   - vendor
@@ -158,26 +159,11 @@ exclude:
   - README.md
   - LICENSE
 
-sitemap_exclude:
-  fuzzy:
-    - /assets/
-  accurate:
-    - /norobots/
-    - /tabs/
-    - /categories/
-    - /tags/
-    - /posts/
-    - 404.html
-    - feed.xml
-    - sitemap.xml
-    - robots.txt
-    - redirects.json
-
 jekyll-archives:
   enabled: [categories, tags]
   layouts:
     category: category
     tag: tag
   permalinks:
-    tag: '/tags/:name/'
-    category: '/categories/:name/'
+    tag: /tags/:name/
+    category: /categories/:name/

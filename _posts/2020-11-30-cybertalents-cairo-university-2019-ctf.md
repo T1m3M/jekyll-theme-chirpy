@@ -26,7 +26,7 @@ It was the first year for CyberTalents's Cybersecurity CTF Competition at Cairo 
 #### Forensics (100 points)
 
 ### Description
-In this challenge we're given a [repeat.zip](repeat.zip) file
+In this challenge we're given a repeat.zip file
 
 
 ### solution
@@ -75,7 +75,7 @@ after the script finished, now we can see a **flag.txt** which contains the flag
 #### Malware reverse engineering (100 points)
 
 ### Description
-[ezez_keygen2](ezez_keygen2) is an executable file and the task is to **crack it**
+ezez_keygen2 is an executable file and the task is to **crack it**
 
 
 ### solution
@@ -406,7 +406,7 @@ that's it!! we got the flag! <br> ```flag{WeWvPhPnXvA$QbWhQzQuWuQuQuQj}```
 #### Forensics (100 points)
 
 ### Description
-Given [holmes.pcap](holmes.pcap) file .. get the flag
+Given holmes.pcap file .. get the flag
 
 
 ### solution
