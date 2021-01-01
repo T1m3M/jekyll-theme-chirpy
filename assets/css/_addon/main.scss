@@ -79,6 +79,18 @@ span.intro{
   color: $my-main-color;
 }
 
+.arabic {
+  display: flex;
+  justify-content: flex-start;
+  direction: rtl;
+  text-align: right !important;
+}
+
+.arabic:after {
+  content: "";
+  clear: right;
+}
+
 /*--- sidebar layout ---*/
 
 $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
