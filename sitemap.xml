@@ -29,7 +29,7 @@ layout: compress
     {% if post.sitemap.priority %}
       <priority>{{ post.sitemap.priority }}</priority>
     {% else %}
-      <priority>0.5</priority>
+      <priority>0.8</priority>
     {% endif %}
   </url>
 {% endfor %}
@@ -63,14 +63,25 @@ layout: compress
     {% continue %}
   {% endif %}
 
+  {% if page.url contains 'assets' or page.url contains '.js'  or page.url contains '.xml' or page.url contains '.txt' or page.url contains 'robots' or page.url == '/posts/' or page.url == '/tabs/' or page.url contains '404' %}
+    {% continue %}
+  {% endif %}
+
   <url>
     <loc>{{ site.url | append: site.baseurl | append: page.url | remove: "index.html" }}</loc>
     <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
 
+    {% if page.url == '/' %}
+      <changefreq>daily</changefreq>
+      <priority>1.0</priority>
+      </url>
+      {% continue %}
+    {% endif %}
+
     {% if page.sitemap.changefreq %}
       <changefreq>{{ page.sitemap.changefreq }}</changefreq>
     {% else %}
-      <changefreq>monthly</changefreq>
+      <changefreq>weekly</changefreq>
     {% endif %}
 
     {% if page.sitemap.priority %}
