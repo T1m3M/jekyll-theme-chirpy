@@ -223,3 +223,44 @@ Examples:
     </tr>
   </table>
 </div>
+
+### J-Type
+
+a special type for J (Jump) and JAL (Jump and link) instructions.
+
+<div style="color: #fff; font-weight: bold; text-align: center;">
+  <table>
+    <tr>
+      <td style="background: #3498db;">op</td>
+      <td style="background: #f1c40f;">address</td>
+    </tr>
+    <tr style="background: none; border: none;">
+      <td>6 bits</td>
+      <td>26 bits</td>
+    </tr>
+  </table>
+</div>
+
+Example:
+
+<div style="color: #fff; text-align: center; font-size: 1.5rem;">
+  <span style="color: #3498db;">jal</span> <span style="color: #f1c40f;">loop</span>
+</div>
+
+<div style="color: #fff; font-weight: bold; text-align: center; margin-top: 20px;">
+  <table>
+    <tr>
+      <td style="background: #3498db;">3</td>
+      <td style="background: #f1c40f;">0x100028</td>
+    </tr>
+    <tr style="background: none; border: none;">
+      <td>6 bits</td>
+      <td>26 bits</td>
+    </tr>
+    <tr>
+      <td colspan="2">0x0C100028</td>
+    </tr>
+  </table>
+</div>
+
+Note that the address is represented in psuedo-direct addressing to make it possible to write a 32-bit address in only 26-bits which will be discussed right now!
