@@ -70,8 +70,7 @@ There are 3 types/formats for registers in MIPS:
 - shamt: shift amount (for shift instructions)
 - funct: function (holds the actual functionality of the instruction for R-Type)
 
-Example:
-
+Examples:
 
 <div style="color: #fff; text-align: center; font-size: 1.5rem;">
   <span style="color: #3498db;">add</span> <span style="color: #9b59b6;">$s0</span>, <span style="color: #c0392b;">$s1</span>, <span style="color: #e67e22;">$s2</span>
@@ -88,15 +87,15 @@ Example:
       <td style="background: #34495e;">00000</td>
       <td style="background: #3498db;">add</td>
     </tr>
-      <tr>
-        <td>decimal</td>
-        <td style="background: #3498db;">000000</td>
-        <td style="background: #c0392b;">17</td>
-        <td style="background: #e67e22;">18</td>
-        <td style="background: #9b59b6;">16</td>
-        <td style="background: #34495e;">00000</td>
-        <td style="background: #3498db;">32</td>
-      </tr>
+    <tr>
+      <td>decimal</td>
+      <td style="background: #3498db;">000000</td>
+      <td style="background: #c0392b;">17</td>
+      <td style="background: #e67e22;">18</td>
+      <td style="background: #9b59b6;">16</td>
+      <td style="background: #34495e;">00000</td>
+      <td style="background: #3498db;">32</td>
+    </tr>
     <tr>
       <td>binary</td>
       <td style="background: #3498db;">000000</td>
@@ -115,11 +114,112 @@ Example:
       <td>5 bits</td>
       <td>6 bits</td>
     </tr>
+    <tr>
+      <td colspan="7">0x02328020</td>
+    </tr>
+  </table>
+</div>
+
+<div style="color: #fff; text-align: center; font-size: 1.5rem;">
+  <span style="color: #3498db;">sll</span> <span style="color: #9b59b6;">$s0</span>, <span style="color: #e67e22;">$s2</span>, <span style="color: #34495e;">2</span>
+</div>
+
+<div style="color: #fff; font-weight: bold; text-align: center; margin-top: 20px;">
+  <table>
+    <tr>
+      <td style="background: #3498db;">000000</td>
+      <td style="background: #c0392b;">00000</td>
+      <td style="background: #e67e22;">18</td>
+      <td style="background: #9b59b6;">16</td>
+      <td style="background: #34495e;">2</td>
+      <td style="background: #3498db;">000000</td>
+    </tr>
+    <tr style="background: none; border: none;">
+      <td>6 bits</td>
+      <td>5 bits</td>
+      <td>5 bits</td>
+      <td>5 bits</td>
+      <td>5 bits</td>
+      <td>6 bits</td>
+    </tr>
+    <tr>
+      <td colspan="6">0x02328020</td>
+    </tr>
   </table>
 </div>
 
 Notes:
-- add instruction's function value (32) is from the MIPS manual in which all instruction have a unique code
+- add instruction's function value (32) and (0) for sll is from the MIPS manual in which all instruction have a unique code
 - the registers values are substituted from the [registers table](http://127.0.0.1:4000/posts/MIPS-cheatsheet/#registers) above
 
 we can say that the instruction machine code is 0x02328020 in hex and this is how it's stored in the executable file or in memory when loaded by the operating system for execution!
+
+### I-Type
+
+<div style="color: #fff; font-weight: bold; text-align: center;">
+  <table>
+    <tr>
+      <td style="background: #3498db;">op</td>
+      <td style="background: #c0392b;">rs</td>
+      <td style="background: #e67e22;">rt</td>
+      <td style="background: #27ae60;">immediate</td>
+    </tr>
+    <tr style="background: none; border: none;">
+      <td>6 bits</td>
+      <td>5 bits</td>
+      <td>5 bits</td>
+      <td>16 bits</td>
+    </tr>
+  </table>
+</div>
+
+Examples:
+
+<div style="color: #fff; text-align: center; font-size: 1.5rem;">
+  <span style="color: #3498db;">addi</span> <span style="color: #e67e22;">$s0</span>, <span style="color: #c0392b;">$s1</span>, <span style="color: #27ae60;">5</span>
+</div>
+
+<div style="color: #fff; font-weight: bold; text-align: center; margin-top: 20px;">
+  <table>
+    <tr>
+      <td style="background: #3498db;">8</td>
+      <td style="background: #c0392b;">17</td>
+      <td style="background: #e67e22;">16</td>
+      <td style="background: #27ae60;">5</td>
+    </tr>
+    <tr style="background: none; border: none;">
+      <td>6 bits</td>
+      <td>5 bits</td>
+      <td>5 bits</td>
+      <td>16 bits</td>
+    </tr>
+    <tr>
+      <td colspan="4">0x22300005</td>
+    </tr>
+  </table>
+</div>
+
+
+<div style="color: #fff; text-align: center; font-size: 1.5rem;">
+  <span style="color: #3498db;">sw</span> <span style="color: #e67e22;">$s1</span>, <span style="color: #27ae60;">4</span>(<span style="color: #c0392b;">$t1</span>)
+</div>
+
+<div style="color: #fff; font-weight: bold; text-align: center; margin-top: 20px;">
+  <table>
+    <tr>
+      <td style="background: #3498db;">43</td>
+      <td style="background: #c0392b;">9</td>
+      <td style="background: #e67e22;">17</td>
+      <td style="background: #27ae60;">4</td>
+    </tr>
+    <tr style="background: none; border: none;">
+      <td>6 bits</td>
+      <td>5 bits</td>
+      <td>5 bits</td>
+      <td>16 bits</td>
+    </tr>
+    <tr>
+      <td colspan="4">0xAD310004</td>
+    </tr>
+  </table>
+</div>
