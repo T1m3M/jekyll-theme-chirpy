@@ -1,11 +1,11 @@
 ---
 title: MIPS cheatsheet
-date: 2021-03-05 13:58:00 +0200
+date: 2021-03-06 12:10:00 +0200
 categories: [Intro, Assembly]
 tags: assembly cheatsheet mips risc low-level
-image: /assets/img/posts/2021-03-05-MIPS-cheatsheet/cover.jpg
+image: /assets/img/posts/2021-03-06-MIPS-cheatsheet/cover.jpg
 ---
-{% assign img_root = "/assets/img/posts/2021-03-05-MIPS-cheatsheet" %}
+{% assign img_root = "/assets/img/posts/2021-03-06-MIPS-cheatsheet" %}
 
 This is a cheatsheet for MIPS 32-bit, It worth mentioning that MIPS is a RISC (Reduced Instruction Set Computer) architecture with 32 general-purpose registers and 3 instruction formats which you will see in more detail.
 
