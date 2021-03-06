@@ -11,7 +11,9 @@ This is a cheatsheet for MIPS 32-bit, It worth mentioning that MIPS is a RISC (R
 
 MIPS architecture uses 32-bit memory addresses and 32-bit data words (4 bytes), note that the endianness of MIPS can be little or big-endian but we will talk about little-endian here regarding the data represented in memory.
 
-Talking about memory! It's important to know that the addresses of data read or written from/into memory should be word aligned (divisible by 4), now we have a good grasp of MIPS. Let's dive in!
+Talking about memory! It's important to know that the addresses of data read or written from/into memory should be word aligned (divisible by 4), now we have a good grasp of MIPS.
+
+Before we dive in. It worth mentioning that most of the examples in this post is from [Digital Design and Computer Architecture 2nd edition by David Harris and Sarah Harris](https://www.amazon.com/Digital-Design-Computer-Architecture-Harris-ebook/dp/B00HEHG7W2) which I highly recommend for those interested in computer architecture.
 
 <hr>
 
