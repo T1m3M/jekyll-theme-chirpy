@@ -358,4 +358,64 @@ Note that the address is combined into hex from right to left. `You can think of
 
 <hr>
 
-## variables
+## Variables and Arrays
+
+### Variables
+To store a variable you can store it "immediately" (I-Type) to a registers if it's 16 bits or less
+
+```
+addi $s0, $0, $0xF00D # $s0 = 0xF00D
+```
+
+or if it's 32 bits:
+```
+lui $s0, 0x1337 # $s0 = 0x13370000
+ori $s0, $s0, 0xF00D # $s0 |= 0xF00D = 0x1337F00D
+```
+
+or you can store it in memory in the data section and load it into a register:
+```
+.data
+  num: .word 0x1337F00D
+
+.text
+.globl main
+
+main:
+  la $t0, num # $t0 = &num
+  lw $s0, ($t0) # $s0 = num = 0x1337F00D
+```
+
+note that .word in the data section is the size of the variable (word = 4 bytes = 32 bits) and can be:
+- .space (empty)
+- .byte (8 bits)
+- .word (4 bytes)
+- .asciiz (null terminated string)
+- .ascii (string without null terminator)
+- .align (aligns the next data on a 2<sup>n</sup> byte boundary)
+
+### Arrays
+
+The array is stored in memory in the data section:
+
+```
+.data
+  arr: .word 1, 2, 3
+
+.text
+.globl main
+
+main:
+  la $s0, arr 	 # $s0 = base address of arr
+  lw $t0, 0($s0) # $t0 = arr[0] = 1
+  lw $t1, 4($s0) # $t0 = arr[1] = 2
+  lw $t2, 8($s0) # $t0 = arr[2] = 3
+
+exit:
+  li $v0, 10
+  syscall
+```
+
+note that the string is nothing but an array of characters in memory!
+
+### Multiplication and division
