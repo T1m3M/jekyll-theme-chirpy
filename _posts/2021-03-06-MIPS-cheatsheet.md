@@ -144,9 +144,6 @@ Examples:
       <td>5 bits</td>
       <td>6 bits</td>
     </tr>
-    <tr>
-      <td colspan="6">0x02328020</td>
-    </tr>
   </table>
 </div>
 
