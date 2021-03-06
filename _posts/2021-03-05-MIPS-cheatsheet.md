@@ -460,3 +460,50 @@ else:
 done:
 ..
 ```
+
+Note that this code contains a conditional jump `bne` for comparison and an unconditional jump `j` to prevent from executing the else statement since assembly goes naturally from top to bottom!
+
+<hr>
+
+## Loops
+
+In programming loops consists of 4 main pieces:
+- Initialization
+- Condition
+- Code that gets repeated
+- Counter update
+
+and so do assembly!
+
+High-level code:
+```
+int pow = 1;         // (initialization)
+int x = 0;
+
+while (pow != 128) { // (condition)
+  pow = pow * 2;     // (code that gets repeated)
+  x = x + 1;         // (counter update)
+}
+```
+
+Low-level code
+
+```
+..
+  addi $s0, $0, 1    # pow = 1 (initialization)
+  addi $s1, $0, 0    # x = 0
+  addi $t0, $0, 128  # t0 = 128 for comparison
+
+while:
+  beq $s0, $t0, done # if pow == 128, exit while loop (condition)
+  sll $s0, $s0, 1    # pow = pow * 2 (code that gets repeated)
+  addi $s1, $s1, 1   # x = x + 1 (counter update)
+  j while
+
+done:
+..
+```
+
+<hr>
+
+## Functions
