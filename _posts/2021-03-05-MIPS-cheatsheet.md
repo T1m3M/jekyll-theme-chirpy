@@ -507,3 +507,66 @@ done:
 <hr>
 
 ## Functions
+
+There's no call/ret instructions in MIPS assembly like in Intel x86, but fortunately we have got labels! with this and Jump and Link `JAL` and Jump Register `JR` we can do magic!
+
+### Function call
+
+Jump and Link `JAL` copies the next instruction address (PC+4) to the `$ra` register and jumps to the address of the label, when returning the Jump Register `JR $ra` copies the value of $ra back to the PC so the program continues execution from where it was left.
+
+This is an implementation for a basic function that adds two numbers and returns the result:
+
+High-level code:
+```
+int add_func(x, y) {
+  return x + y;
+}
+
+int main() {
+  a = add_func(2, 4);
+}
+```
+
+Low-level code:
+```
+.text
+.globl main
+add_func:
+  add $v0, $a0, $a1
+  jr $ra            # return (PC = $ra)
+
+main:
+  addi $a0, $0, 2
+  addi $a1, $0, 4
+  jal add_func      # call function ($ra = PC + 4, PC --> add_func)
+  add $s0, $0, $v0
+```
+
+Notes:
+- saved registers ($s0-$s7) shouldn't change after call
+- temporary registers ($0-$t9) can be changed inside the function
+- arguments should be passed in ($a0-$a3) registers
+- return values should be saved in ($v0-$v1) registers
+
+### Stack frames
+
+each function should have its stack frame for purposes like saving the saved registers ($s0-$s7) at first and retrieving the values back at the end, and to control the stack we have 2 registers for this task:
+
+- `$fp`: base of the stack
+- `$sp`: top of the stack
+
+Note that `$fp` > `$sp` since **`the stack grows towards lower memory addresses`**
+
+Example of allocating and de-allocating stack frame of a function:
+
+ ```
+ addi $sp, $sp, -12 # allocation
+ sw   $s0, 8($sp) # saves $s0
+ sw   $t0, 4($sp) # saves $t0
+ sw   $t1, 0($sp) # saves $t1
+ ..
+ lw   $t1, 0($sp) # restores $t1
+ lw   $t0, 4($sp) # restores $t0
+ lw   $s0, 8($sp) # restores $s0
+ addi $sp, $sp, 12 # de-allocation
+ ```
