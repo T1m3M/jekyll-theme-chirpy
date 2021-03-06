@@ -265,4 +265,8 @@ Example:
   </table>
 </div>
 
-Note that the address is represented in psuedo-direct addressing to make it possible to write a 32-bit address in only 26-bits which will be discussed right now!
+Note that the label address is represented in pseudo-direct addressing to make it possible to write a 32-bit address in only 26-bits which will be discussed right now!
+
+<hr>
+
+## addressing modes
