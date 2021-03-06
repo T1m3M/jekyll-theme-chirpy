@@ -230,6 +230,8 @@ Examples:
 
 a special type for J (Jump) and JAL (Jump and link) instructions.
 
+`NOTE: (Jump Register) JR instruction is an R-Type instruction with only rs operand assigned`
+
 <div style="color: #fff; font-weight: bold; text-align: center;">
   <table>
     <tr>
@@ -418,4 +420,12 @@ exit:
 
 note that the string is nothing but an array of characters in memory!
 
-### Multiplication and division
+<hr>
+
+## Multiplication and division
+
+Since multiplication of two 32-bit registers can result in a 64-bit value, and the division of two numbers results in a quotient and a remainder there are 2 special purpose registers for mult and div instructions:
+```
+mult $s0, $s1 # result = hi:lo
+div  $s0, $s1 # hi = quotient, lo = remainder
+```
