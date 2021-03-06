@@ -570,3 +570,49 @@ Example of allocating and de-allocating stack frame of a function:
  lw   $s0, 8($sp) # restores $s0
  addi $sp, $sp, 12 # de-allocation
  ```
+
+ <hr>
+
+## System calls
+
+To perform tasks like taking user input, printing on screen or exiting the program we use system calls as show in the table:
+
+|  Service     | System call code |   Arguments            | Result             |
+| :----------- | :--------------- | :--------------------- |:------------------ |
+| print_int    | 1                | $a0 = integer          |                    |
+| print_float  | 2                | $f12 = float           |                    |
+| print_double | 3                | $f12 = double          |                    |
+| print_string | 4                | $a0 = string           |                    |
+| read_int     | 5                |                        | integer(in $v0)    |
+| read_float   | 6                |                        | float(in $f0)      |
+| read_double  | 7                |                        | double(in $f0)     |
+| read_string  | 8                | $a0=buffer, $a1=length |                    |
+| sbrk         | 9                | $a0=amount             |                    |
+| exit         | 10               |                        |                    |
+
+the system call code gets loaded in $v0 followed by a `syscall` instruction to execute it.
+
+Example of exit system call to exit a program:
+```
+li $v0, 10
+syscall
+```
+
+Another example of printing "foo" word on screen:
+```
+.data
+	foo: .asciiz "foo"
+
+.text
+.globl main
+
+main:
+	la   $a0, foo
+	li   $v0, 4
+	syscall
+
+exit:
+	li $v0, 10
+	syscall
+```
+> output: foo
