@@ -152,7 +152,7 @@ Examples:
 
 Notes:
 - add instruction's function value (32) and (0) for sll is from the MIPS manual in which all instruction have a unique code
-- the registers values are substituted from the [registers table](http://127.0.0.1:4000/posts/MIPS-cheatsheet/#registers) above
+- the registers values are substituted from the [registers table](#registers) above
 
 we can say that the instruction machine code is 0x02328020 in hex and this is how it's stored in the executable file or in memory when loaded by the operating system for execution!
 
@@ -269,4 +269,93 @@ Note that the label address is represented in pseudo-direct addressing to make i
 
 <hr>
 
-## addressing modes
+## Addressing modes
+
+There are 5 different ways the CPU can access the memory in MIPS
+
+### Register-only
+registers for all source and destination operands (R-Type uses it)
+
+### Immediate addressing
+16-bit immediate with registers as operands (i.e. addi and lui)
+
+### Base-addressing
+memory access instructions (i.e. lw and sw)
+
+address of memory = base + sign-extended 16-bit offset of immediate
+
+Example: lw $s0, 8($s1) `address = $s1 (base-pointer) + 8`
+
+### PC-relative
+conditional branch instructions (i.e. beq, bne, ...) use it to compute the new value of the PC _(Program Counter)_
+
+`Branch Target Address (BTA) = (PC + 4) + sign-extended offset of immediate`
+
+so if the offset is negative the label is above the current instruction.
+
+Example:
+```
+0xA4 beq $t0, $0, else
+0xA8 addi $v0, $0, 1
+0xAC addi $sp, $sp, 8
+0xBO jr $ra
+0xB4 else: addi $a0, $a0, −1
+0xB8 jal factorial
+```
+
+assuming PC=0xA4 the BTA will be: `(0xA4 + 4) + 3 instructions` which means the target address is 3 instructions after 0xA8 instruction (if it's a -5 then it would be 5 instructions _before_ 0xA4)
+
+### Pseudo-direct
+here the address is specified in the instruction which is used in J and JAL instructions (J-Type instructions) recall the example in [J-Type](#j-type) the address had only 26-bits to be stored while in a program it should be 32-bit address for PC!
+
+That's the algorithm to calculate a 26-bit address from 32-bit address:
+
+1- get the address of the label instruction _Jump Target Address (JTA)_
+
+2- Discard the 2 least significant bits JTA<sub>1:0</sub> **Because the instructions are word-aligned 4 (0100)<sub>2</sub>, 8 (1000)<sub>2</sub>, 12 (1100)<sub>2</sub> so the 2 LSB are always zeros!)**
+
+3- Discard the 4 most significant bits JTA<sub>31:28</sub> **Because they can be obtained from the PC address so if your program is not long it won't be far from current instruction which also puts some constraints on the range)**
+
+Example:
+
+```
+0x0040005C jal sum
+...
+0x004000A0 sum: add $v0, $a0, $a1
+```
+
+The JTA for JAL instruction here is 0x004000A0 and here's the conversion of it to 26-bit address by applying the above algorithm:
+
+<div style="color: #fff; font-weight: bold; text-align: center; margin-top: 20px;">
+  <table>
+    <tr>
+      <td style="background: #a55eea;">0</td>
+      <td style="background: #8854d0;">0</td>
+      <td style="background: #a55eea;">4</td>
+      <td style="background: #8854d0;">0</td>
+      <td style="background: #a55eea;">0</td>
+      <td style="background: #8854d0;">0</td>
+      <td style="background: #a55eea;">A</td>
+      <td style="background: #8854d0;">0</td>
+    </tr>
+    <tr>
+      <td style="background: #a55eea; text-decoration: line-through;">00 00</td>
+      <td style="background: #8854d0;">00 00</td>
+      <td style="background: #a55eea;">01 00</td>
+      <td style="background: #8854d0;">00 00</td>
+      <td style="background: #a55eea;">00 00</td>
+      <td style="background: #8854d0;">00 00</td>
+      <td style="background: #a55eea;">10 10</td>
+      <td style="background: #8854d0;">00<span style="text-decoration: line-through;">00</span></td>
+    </tr>
+    <tr>
+      <td colspan="8">0x0100028</td>
+    </tr>
+  </table>
+</div>
+
+Note that the address is combined into hex from right to left. `You can think of the reverse process of adding 00 to the most right and adding the 4 most significant bits from the PC which are zero to get the original address 0x004000A0 back!`
+
+<hr>
+
+## variables
