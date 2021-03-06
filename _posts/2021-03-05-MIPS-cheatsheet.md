@@ -429,3 +429,34 @@ Since multiplication of two 32-bit registers can result in a 64-bit value, and t
 mult $s0, $s1 # result = hi:lo
 div  $s0, $s1 # hi = quotient, lo = remainder
 ```
+
+<hr>
+
+## If / else conditions
+
+The main observation here is `the low level condition is the inverse of the high level condition`
+
+High-level code:
+```
+if (x == y):
+  x = y << 2
+else:
+  x = y
+```
+
+Low-level code
+
+```
+..
+  addi $s0, $0, 0     #x = 0
+  addi $s1, $0, 1     #y = 1
+  bne  $s0, $s1, else #if (x != y) go to else
+  sll  $s0, $s1, 2    #x = (x << 2)
+  j    done
+
+else:
+  add $s0, $s0, $s1   #x = y
+
+done:
+..
+```
