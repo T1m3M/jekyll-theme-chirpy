@@ -1,6 +1,6 @@
 ---
 title: Marathon CTF
-date: 2021-04-02 00:40:00 +0200
+date: 2021-04-02 10:30:00 +0200
 categories: [CTF, Writeups]
 tags: ctf writeups reverse reverse-engineering web assembly idapro idapython anti-debugging
 image: /assets/img/posts/2021-04-02-Marathon-CTF/cover.jpg
@@ -347,4 +347,163 @@ for pin in range(0, 10000):
 
 <img src="{{img_root}}/challenges/hiki/flag.png" alt="HiKi solver.py">
 
-That was easy! `FLAG{Wh3n_1n_D0ubt_Us3_Brut3F0rc3}`
+<hr>
+
+## C1ph3r
+
+<img src="{{img_root}}/info/c1ph3r.png" alt="C1ph3r info">
+
+Last but not least! This is the most challenge I enjoyed so far in the Marathon CTF and you will figure out why!
+
+I was given this 32-bit binary and by analyzing it in IDA and taking a look at the strings:
+
+<img src="{{img_root}}/challenges/c1ph3r/strings.png" alt="strings">
+
+There are a lot of messages that shows the binary is corrupted and need to be fixed also in the API imports `IsDebuggerPresent` function from KERNEL32 Library so I'm expecting ant-debugging techniques!
+
+I went to `"Enter the flag:\n"` reference:
+
+<img src="{{img_root}}/challenges/c1ph3r/fake_flag.png" alt="strings">
+<img src="{{img_root}}/challenges/c1ph3r/xor_44.png" alt="fake flag function">
+
+After of pushing data to the stack it calls some functions one of them XORs these bytes with 0x44 _(I named it XOR_44)_ which result in the string `just for your attention, nothing here is real` and yeah just another rabbit hole :"D
+
+Another note from the code overview is that to approach a function it calls a function that jumps to the desired function
+
+I headed back to the beginning to the main function and started tracing statically the flow which was full of exceptions and debugger traps `int 3` instructions to make breakpoints and another important note is *Pseudocode* is not working so we're talking assembly here _**which is cool tbh ;)**_
+
+My approach here was:
+1. hitting a breakpoint at the start of try..catch exception
+2. modifying EIP to the call instruction (to get out of there ASAP :D)
+3. repeating 1 and 2 until reaching finding the treasure (a cool function)
+
+Let's dive in starting from main:
+
+<img src="{{img_root}}/challenges/c1ph3r/main.png" alt="main function">
+<img src="{{img_root}}/challenges/c1ph3r/main2.png" alt="main function again">
+
+There were 2 intermediate functions and then I reached this function which seems to be cool the exception start was on the right block but I changed the flow to the highest block above where the magic begins:
+
+<img src="{{img_root}}/challenges/c1ph3r/treasure.png" alt="treasure function">
+
+Here's a closer look to the upper part the first part basically prints "Enter the flag:" and accepts user's input (32 characters) and I could see clearly 2 loops in there one inside another:
+
+<img src="{{img_root}}/challenges/c1ph3r/magic.png" alt="start of magic function">
+
+
+the first loop iterates while count_1 < 32 (count increases by two) and allocates memory using the standard memset function with size 0x1B28 let's call that `buff` and the second loop iterates while count_2 < 0xD94 (which is half of 0x1B28):
+
+<img src="{{img_root}}/challenges/c1ph3r/loops.png" alt="the two loops">
+
+The second loop is doing encryption and after it finishes it's using memcmp standard function to compare it to a pre-defined memory chunk
+
+<img src="{{img_root}}/challenges/c1ph3r/enc.png" alt="encrypt and compare">
+
+Putting pieces together the first loop takes two characters from the user's input at a time, decrypt it then comparing the result with the pre-stored chunks of memory so I dumped those 16 chunks using 3 lines of IDApython:
+```python
+start = 0x00CACB60
+
+for counter in range(16):
+	idc.savefile("mem" + str(counter).zfill(2) + ".bin", 0, start + (counter * 0x1B28), 0x1B28)
+```
+
+Now the decryption process:
+- val = two bytes of the user's input
+- loop from zero to 0xD94:
+  - if val % all_bytes[i] != 0 increment counter
+  - otherwise buf[i] += 1 and val = val / all_bytes[i]
+
+Where all_bytes are stored constants in memory to see if these constants divides the value of 2 bytes
+
+So again I made a 2 lines IDApython script to get the all_bytes from memory:
+```python
+all_bytes_addr = 0x00CAB038
+
+idc.savefile("all_bytes.bin", 0, all_bytes_addr, 0x1B28)
+```
+
+Okay enough with the analysis let's talk code this is the encryption simulation in python for first 2 letters of the flag `"fl" = 0x666c` which its result was equal to mem00.bin _(the first chunk of memory)_:
+```
+# encrpytion simulation
+buf = [ 0 for _ in range(0xD94)]
+
+val = 0x666C
+count_2 = 0
+
+while count_2 < 0xD94:
+
+    this_byte = all_bytes[count_2]
+
+    if val % this_byte != 0:
+        count_2 += 1;
+
+    else:
+        buf[2 * count_2] += 1
+        val = int(val / this_byte)
+
+for i in buf:
+    print(i, ' ', end='')
+```
+
+Let's sum up, I had the constants and how many times each constant divides the 2 bytes value from the flag so to get those bytes I should calculate the Greatest Common Divisor (GCD) for the 16 values (32 bytes flag) and this way I should have the flag!! so I made a python script to do that for me:
+```python
+#!/bin/env python3
+
+import struct
+from Crypto.Util.number import long_to_bytes
+
+all_bytes = []
+
+# reading all_bytes from the memory dump to array as unsigned short values in little endian
+with open("all_bytes.bin", "rb") as f:
+
+    while True:
+        buf = f.read(2)
+
+        if not buf:
+            break
+
+        all_bytes.append(struct.unpack('<H', buf)[0])
+
+
+
+flag_bytes = []
+
+# looping through the 16 memory dumps for the encrypted 2 letters flag
+for count_1 in range(16):
+
+    # reading memory dump
+    with open("mem/mem" + str(count_1).zfill(2) + ".bin", "rb") as f:
+        memdump = f.read()
+
+    # reseting counters
+    count_2 = 0
+    result = 1
+
+    # getting the divisors from the memory dump
+    for ptr in range(0, len(memdump)):
+
+        if memdump[ptr] > 0:
+
+            # how many times the divisor divides the value
+            times = memdump[ptr]
+
+            #print("@count_2 = %i -> 0x%x" % (count_2, times))
+
+            # multiplying the divisors to get the GCD (greatest common divisor)
+            for _ in range(times):
+                result *= all_bytes[count_2]
+
+        elif ptr % 2 == 1:
+            count_2 += 1
+
+    flag_bytes.append(result)
+
+
+# decoding the flag
+flag = ""
+hex_bytes = ''.join([hex(x)[2:] for x in flag_bytes])
+flag = long_to_bytes(int(hex_bytes, 16)).decode('utf-8')
+print(flag)
+```
+<img src="{{img_root}}/challenges/c1ph3r/flag.png" alt="C1ph3r solver.py">
