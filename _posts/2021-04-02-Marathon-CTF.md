@@ -92,3 +92,86 @@ I typed `__import__('glob').glob("*")` to discover what's around (which I should
 ```
 Okay it's `flag` file, not `flag.txt`! then by reading that file `open('flag', 'r').read()` I've got the flag:
 <img src="{{img_root}}/challenges/python-art/flag.png" alt="flag">
+
+<hr>
+
+## ASM (4SM)
+
+<img src="{{img_root}}/info/4sm.png" alt="4SM info">
+
+I do love assembly! taking a look at 4SM.asm:
+```java
+flag_checker:
+        push    rbp
+        mov     rbp, rsp
+        mov     DWORD PTR [rbp-4], edi
+        xor     DWORD PTR [rbp-4], 133337
+        sar     DWORD PTR [rbp-4], 3
+        add     DWORD PTR [rbp-4], 1337
+        sub     DWORD PTR [rbp-4], 137
+        mov     edx, DWORD PTR [rbp-4]
+        mov     eax, edx
+        add     eax, eax
+        add     eax, edx
+        mov     DWORD PTR [rbp-4], eax
+        cmp     DWORD PTR [rbp-4], 1128648
+        jne     .L2
+        mov     eax, 1
+        jmp     .L3
+.L2:
+        mov     eax, 0
+.L3:
+        pop     rbp
+        ret
+.LC0:
+        .string "Enter the secret number: "
+.LC1:
+        .string "%d"
+.LC2:
+        .string "Correct number :D"
+.LC3:
+        .string "Wrong number :p"
+main:
+        push    rbp
+        mov     rbp, rsp
+        sub     rsp, 16
+        mov     edi, OFFSET FLAT:.LC0
+        mov     eax, 0
+        call    printf
+        mov     eax, DWORD PTR [rbp-4]
+        mov     esi, eax
+        mov     edi, OFFSET FLAT:.LC1
+        mov     eax, 0
+        call    __isoc99_scanf
+        mov     eax, DWORD PTR [rbp-4]
+        mov     edi, eax
+        call    flag_checker
+        mov     DWORD PTR [rbp-8], eax
+        cmp     DWORD PTR [rbp-8], 0
+        je      .L5
+        mov     edi, OFFSET FLAT:.LC2
+        call    puts
+        jmp     .L6
+.L5:
+        mov     edi, OFFSET FLAT:.LC3
+        call    puts
+.L6:
+        mov     eax, 0
+        leave
+        ret
+```
+
+The flow goes as follows:
+- starting from main
+- "Enter the secret number: " message get printed using printf function
+- getting user input through scanf function with %d format
+- flag_checker function is called "to check the flag obviously"
+- doing some math: `((((x ^ 133337) >> 3) + 1337) - 137) * 3` where x is the user input
+- comparing so the result should be equal to 1128648
+
+_NOTE: the `^` is XOR and `>>` is shift arithmetic right_
+
+I had the equation `((((x ^ 133337) >> 3) + 1337) - 137) * 3 = 1128648` so by solving it:<br>
+`x = ((((1128648/3) + 137) - 1337) << 3) ^ 133337 = 3133337`
+
+The flag: `flag{3133337}`
