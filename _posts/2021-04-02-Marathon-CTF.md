@@ -302,3 +302,49 @@ for a in known_bytes:
 print(flag)
 ```
 And I got the flag: `flag{34zy_m0d_1nv3rs3-_-}`
+
+<hr>
+
+## HiKi
+
+<img src="{{img_root}}/info/hiki.png" alt="HiKi info">
+
+I was given an apk file so I decompiled it to jar to see the source code using `dex2jar` tool and there were two interesting source files MainActivity.class and EncDec.class:
+
+<img src="{{img_root}}/challenges/hiki/hiki-main.png" alt="Hiki MainActivity.class">
+<img src="{{img_root}}/challenges/hiki/hiki-encdec.png" alt="Hiki EncDec.class">
+
+By reading the code it's obvious that it's doing AES Decryption to a pre-encrypted value and the key is the pin entered by the user concatenated with `Cyb3rT4l3nt5`
+
+Here's the trick the pin in code should be 6 digits or less and since `Cyb3rT4l3nt5` length is 12 and since we're talking about a small key then It's 128-bit key which is 16 bytes we know 12 bytes so the pin should be 4 digits! (so the key is on the format `xxxxCyb3rT4l3nt5`)
+
+The pin has 10k possibilities I wrote a python script to brute force it and simulate the decryption process:
+
+```python
+#!/bin/env python3
+
+import base64
+from Crypto.Cipher import AES
+
+known_key = "Cyb3rT4l3nt5"
+
+enc = "blJ9s0JObmk7Qi7vfe98RWN3snqSc79GZTC+8IaHuV052R3Q43SH8vXhjQt7E5m3"
+b64_enc = base64.b64decode(enc)
+
+for pin in range(0, 10000):
+
+    try:
+        key = str(pin).zfill(4) + known_key
+
+        cipher = AES.new(key.encode('utf-8'), AES.MODE_ECB)
+        msg = cipher.decrypt(b64_enc).decode('utf-8')
+
+        print("key = {}, flag = {}".format(key, msg))
+
+    except:
+        continue
+```
+
+<img src="{{img_root}}/challenges/hiki/flag.png" alt="HiKi solver.py">
+
+That was easy! `FLAG{Wh3n_1n_D0ubt_Us3_Brut3F0rc3}`
