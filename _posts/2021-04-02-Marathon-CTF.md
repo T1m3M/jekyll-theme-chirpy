@@ -423,7 +423,7 @@ idc.savefile("all_bytes.bin", 0, all_bytes_addr, 0x1B28)
 ```
 
 Okay enough with the analysis let's talk code this is the encryption simulation in python for first 2 letters of the flag `"fl" = 0x666c` which its result was equal to mem00.bin _(the first chunk of memory)_:
-```
+```python
 # encrpytion simulation
 buf = [ 0 for _ in range(0xD94)]
 
@@ -444,6 +444,8 @@ while count_2 < 0xD94:
 for i in buf:
     print(i, ' ', end='')
 ```
+
+**Output: 2  0  1  0  1  0  0  0  0  0  0  0  0  0  1  0  1 ... 0** _(which is identical to mem00.bin which holds the first 2 bytes' factorization of the flag)_
 
 Let's sum up, I had the constants and how many times each constant divides the 2 bytes value from the flag so to get those bytes I should calculate the Greatest Common Divisor (GCD) for the 16 values (32 bytes flag) and this way I should have the flag!! so I made a python script to do that for me:
 ```python
